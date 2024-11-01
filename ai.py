@@ -13,10 +13,10 @@ inputs = tokenizer(input_text, return_tensors="pt")
 output = model.generate(
     inputs['input_ids'], 
     attention_mask=inputs['attention_mask'], 
-    max_new_tokens=50,      
-    temperature=0.2,        # Daha yapılandırılmış bir çıktı için düşük temperature
+    max_new_tokens=500,      
+    temperature=0.3,        # Daha yapılandırılmış bir çıktı için düşük temperature
     repetition_penalty=1.2, 
-    top_k=40,               # Yapılandırılmış seçimler için orta seviye top_k
+    top_k=50,               # Yapılandırılmış seçimler için orta seviye top_k
     top_p=0.85,             
     do_sample=True          
 )
