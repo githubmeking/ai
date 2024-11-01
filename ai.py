@@ -1,24 +1,23 @@
-from transformers import AutoTokenizer, AutoModelForCausalLM
+from transformers import GPT2Tokenizer, GPT2LMHeadModel
 import torch
 
 # Model ve tokenizer'ı yükleme
-tokenizer = AutoTokenizer.from_pretrained("openai-community/gpt2")
-model = AutoModelForCausalLM.from_pretrained("openai-community/gpt2")
+tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
+model = GPT2LMHeadModel.from_pretrained("gpt2")
 
-# Girdi metni
-input_text = "def fibonacci_toplami(n):  # Bu fonksiyon, Fibonacci dizisindeki ilk n sayısının toplamını hesaplar."
+# Giriş metni (Örnek olarak Fibonacci serisini hesaplayan bir fonksiyon başlatıyoruz)
+input_text = "def fibonacci(n):"
 inputs = tokenizer(input_text, return_tensors="pt")
 
-# Daha anlamlı bir çıktı almak için optimize edilmiş ayarlar
+# Modelin devam eden bir kod üretmesi için parametreler
 output = model.generate(
     inputs['input_ids'], 
-    attention_mask=inputs['attention_mask'], 
-    max_new_tokens=500,      
-    temperature=0.3,        # Daha yapılandırılmış bir çıktı için düşük temperature
-    repetition_penalty=1.2, 
-    top_k=50,               # Yapılandırılmış seçimler için orta seviye top_k
-    top_p=0.85,             
-    do_sample=True          
+    max_new_tokens=50,         # Üreteceği token sayısı
+    temperature=0.7,           # Daha yaratıcı bir çıktı için sıcaklık değeri
+    repetition_penalty=1.2,    # Tekrarları önlemek için ceza
+    top_k=50,                  # Orta seviye kelime havuzu seçimi
+    top_p=0.9,                 # En yüksek olasılıklı kelimelerden seçim
+    do_sample=True             # Örneklemeyi etkinleştirir
 )
 
 # Çıktıyı çözümleme ve yazdırma
