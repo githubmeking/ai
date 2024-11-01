@@ -6,18 +6,18 @@ tokenizer = AutoTokenizer.from_pretrained("openai-community/gpt2")
 model = AutoModelForCausalLM.from_pretrained("openai-community/gpt2")
 
 # Girdi metni
-input_text = "def fibonacci_toplami(n):  # Bu fonksiyon, Fibonacci dizisindeki ilk n sayısının toplamını Türkçe olarak hesaplar ve sonucu döndürür."
+input_text = "def fibonacci_toplami(n):  # Bu fonksiyon, Fibonacci dizisindeki ilk n sayısının toplamını hesaplar."
 inputs = tokenizer(input_text, return_tensors="pt")
 
-# max_new_tokens ile kısa ve yapılandırılmış bir çıktı almak için
+# Daha anlamlı bir çıktı almak için optimize edilmiş ayarlar
 output = model.generate(
     inputs['input_ids'], 
     attention_mask=inputs['attention_mask'], 
-    max_new_tokens=30,      
-    temperature=0.3,        
+    max_new_tokens=50,      
+    temperature=0.2,        # Daha yapılandırılmış bir çıktı için düşük temperature
     repetition_penalty=1.2, 
-    top_k=20,               
-    top_p=0.75,             
+    top_k=40,               # Yapılandırılmış seçimler için orta seviye top_k
+    top_p=0.85,             
     do_sample=True          
 )
 
