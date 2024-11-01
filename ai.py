@@ -13,10 +13,10 @@ inputs = tokenizer(input_text, return_tensors="pt")
 output = model.generate(
     inputs['input_ids'], 
     max_new_tokens=200,         # Üreteceği token sayısı
-    temperature=0.7,           # Daha yaratıcı bir çıktı için sıcaklık değeri
+    temperature=0.2,           # Daha yaratıcı bir çıktı için sıcaklık değeri
     repetition_penalty=1.2,    # Tekrarları önlemek için ceza
-    top_k=50,                  # Orta seviye kelime havuzu seçimi
-    top_p=0.9,                 # En yüksek olasılıklı kelimelerden seçim
+    top_k=20,                  # Orta seviye kelime havuzu seçimi
+    top_p=0.3,                 # En yüksek olasılıklı kelimelerden seçim
     do_sample=True             # Örneklemeyi etkinleştirir
 )
 
