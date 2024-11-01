@@ -12,7 +12,7 @@ inputs = tokenizer(input_text, return_tensors="pt")
 # Modelin devam eden bir kod üretmesi için parametreler
 output = model.generate(
     inputs['input_ids'], 
-    max_new_tokens=50,         # Üreteceği token sayısı
+    max_new_tokens=200,         # Üreteceği token sayısı
     temperature=0.7,           # Daha yaratıcı bir çıktı için sıcaklık değeri
     repetition_penalty=1.2,    # Tekrarları önlemek için ceza
     top_k=50,                  # Orta seviye kelime havuzu seçimi
