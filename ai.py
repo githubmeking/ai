@@ -9,15 +9,15 @@ model = AutoModelForCausalLM.from_pretrained("openai-community/gpt2")
 input_text = "def fibonacci(n):"
 inputs = tokenizer(input_text, return_tensors="pt")
 
-# Daha yapılandırılmış ve tutarlı bir çıktı almak için ayarlar
+# Daha yapılandırılmış ve tutarlı bir çıktı almak için optimize edilmiş ayarlar
 output = model.generate(
     inputs['input_ids'], 
     attention_mask=inputs['attention_mask'], 
-    max_length=50,           # Çıktı uzunluğunu sınırlı tutmak için
-    temperature=0.4,         # Yaratıcılığı düşürerek daha tutarlı sonuçlar
-    repetition_penalty=1.1,  
-    top_k=30,                # Sınırlı seçim havuzu
-    top_p=0.8,               # En yüksek olasılıklı kelimelerden seçim
+    max_length=30,           # Çıktıyı kısa ve anlamlı tutmak için
+    temperature=0.5,         # Daha düşük yaratıcılık ve daha yapılandırılmış sonuçlar
+    repetition_penalty=1.15, # Tekrarları azaltma
+    top_k=30,                
+    top_p=0.85,              
     do_sample=True           
 )
 
