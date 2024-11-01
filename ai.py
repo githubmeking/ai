@@ -1,16 +1,17 @@
 from transformers import AutoTokenizer, AutoModelForCausalLM
+import torch
 
-# Modeli ve tokenizer'ı yükleyin
+# Model ve tokenizer'ı yükleme
 tokenizer = AutoTokenizer.from_pretrained("openai-community/gpt2")
 model = AutoModelForCausalLM.from_pretrained("openai-community/gpt2")
 
-# Kod üretmek için giriş cümlesi
+# Girdi metni
 input_text = "def fibonacci(n):"
-input_ids = tokenizer.encode(input_text, return_tensors="pt")
+inputs = tokenizer(input_text, return_tensors="pt")
 
-# Kod üretimi
-output = model.generate(input_ids, max_length=50, temperature=0.7, repetition_penalty=1.2)
+# `attention_mask` ile çıktı üretme
+output = model.generate(inputs['input_ids'], attention_mask=inputs['attention_mask'], max_length=50, temperature=0.7)
+
+# Çıktıyı çözümleme ve yazdırma
 generated_code = tokenizer.decode(output[0], skip_special_tokens=True)
-
-# Üretilen kodu yazdır
 print(generated_code)
