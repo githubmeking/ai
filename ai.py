@@ -13,11 +13,12 @@ inputs = tokenizer(input_text, return_tensors="pt")
 output = model.generate(
     inputs['input_ids'], 
     attention_mask=inputs['attention_mask'], 
-    max_length=100,             # Daha uzun bir çıktı için max_length artırılabilir
-    temperature=1.5,            # Yaratıcılığı artırır
-    repetition_penalty=1.1,     # Tekrarları azaltmak için hafif bir ceza
-    top_k=0,                    # Sınırsız seçim havuzu (daha fazla yaratıcılık için)
-    top_p=0.9                   # Daha geniş seçim olasılığı
+    max_length=100,            # Daha uzun bir çıktı için max_length artırılabilir
+    temperature=1.5,           # Yaratıcılığı artırır
+    repetition_penalty=1.1,    # Tekrarları azaltmak için hafif bir ceza
+    top_k=0,                   # Sınırsız seçim havuzu (daha fazla yaratıcılık için)
+    top_p=0.9,                 # Daha geniş seçim olasılığı
+    do_sample=True             # Örneklemeyi etkinleştirir
 )
 
 # Çıktıyı çözümleme ve yazdırma
